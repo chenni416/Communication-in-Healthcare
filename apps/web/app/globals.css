@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ---- Tokens: docs/UIUX_OMNI_TWIN.md §6（§7-dark，預設）；白色主題 [data-theme="white"] 沿用原 CLAUDE.md §7 ----
+   規則：--primary 是 --accent 的別名（既有元件用 primary）；發光只給 01 熱點與同步燈（.glow）。 */
+:root {
+  --bg: #0b0f14;
+  --surface: #121822;
+  --surface-2: #182130;
+  --line: #223042;
+  --ink: #e6edf3;
+  --ink-2: #8fa3b8;
+  --accent: #35e0c8;
+  --accent-2: #a78bfa;
+  --primary: var(--accent);
+  --on-primary: #0b0f14;
+  --ok: #3ddc97;
+  --warn: #f5b84a;
+  --danger: #ff6b6b;
+  /* 填色＝原色 8–12% 疊在 surface 上；填色上的文字在深色底直接用原色（對比 ≥ 6:1） */
+  --ai-fill: color-mix(in srgb, var(--accent-2) 8%, var(--surface));
+  --ai-line: color-mix(in srgb, var(--accent-2) 40%, transparent);
+  --danger-fill: color-mix(in srgb, var(--danger) 10%, var(--surface));
+  --ok-fill: color-mix(in srgb, var(--ok) 10%, var(--surface));
+  --warn-fill: color-mix(in srgb, var(--warn) 12%, var(--surface));
+  --ok-ink: #3ddc97;
+  --warn-ink: #f5b84a;
+  --danger-ink: #ff8a8a;
+  --primary-hover: #5ae8d4;
+  --surface-hover: #182130;
+  --ok-fill-hover: color-mix(in srgb, var(--ok) 18%, var(--surface));
+  --danger-fill-hover: color-mix(in srgb, var(--danger) 18%, var(--surface));
+  --radius-card: 12px;
+  --shadow-card: none;
+  color-scheme: dark;
+}
+
+/* 白色主題（CLAUDE.md §7 原 tokens）：RoundPage、事件資訊包列印版、醫師頁可切換 */
+[data-theme="white"] {
+  --bg: #ffffff;
+  --surface: #f7f9fc;
+  --surface-2: #eef2f7;
+  --line: #e3e8ef;
+  --ink: #0f1b2d;
+  --ink-2: #5b6b7f;
+  --accent: #1f6feb;
+  --accent-2: #6d5bd0;
+  --primary: #1f6feb;
+  --on-primary: #ffffff;
+  --ok: #1fa971;
+  --warn: #d98a00;
+  --danger: #d64545;
+  --ai-fill: #eaf2ff;
+  --ai-line: #1f6feb;
+  --danger-fill: #fbe9e9;
+  --ok-fill: #e8f7f0;
+  --warn-fill: #fff4e0;
+  --ok-ink: #14724d;
+  --warn-ink: #8a5700;
+  --danger-ink: #a83232;
+  --primary-hover: #1a62d3;
+  --surface-hover: #eef2f7;
+  --ok-fill-hover: #d6f0e4;
+  --danger-fill-hover: #f5d5d5;
+  --shadow-card: 0 1px 2px rgba(15, 27, 45, 0.06);
+  color-scheme: light;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-primary: var(--primary);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-ai-fill: var(--ai-fill);
+  --color-danger-fill: var(--danger-fill);
+  --color-ok-fill: var(--ok-fill);
+  --color-warn-fill: var(--warn-fill);
+  --color-ok-ink: var(--ok-ink);
+  --color-warn-ink: var(--warn-ink);
+  --color-danger-ink: var(--danger-ink);
+  --color-primary-hover: var(--primary-hover);
+  --color-surface-hover: var(--surface-hover);
+  --color-ok-fill-hover: var(--ok-fill-hover);
+  --color-danger-fill-hover: var(--danger-fill-hover);
+  --color-surface-2: var(--surface-2);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-on-primary: var(--on-primary);
+  --color-ai-line: var(--ai-line);
+  /* 拉丁與數字 Inter 在前；CJK 由 Noto Sans TC 補上 */
+  --font-sans: var(--font-inter), var(--font-noto), "Inter", "Noto Sans TC", system-ui, sans-serif;
+  --font-latin: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  --radius-card: 12px;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  /* 紅燈 banner 為 sticky top：焦點元素捲入時不被蓋住 */
+  scroll-padding-top: 96px;
+  scroll-padding-bottom: 96px;
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  margin: 0;
+  min-height: 100dvh;
+}
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.num, td.num, .tabular { font-variant-numeric: tabular-nums; font-family: var(--font-latin); }
+
+button, a, [role="button"] { touch-action: manipulation; }
+
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* AI vs 人：樣式契約（docs/UIUX_OMNI_TWIN.md §5）——靠形狀（虛線／實線／勾）不靠顏色 */
+.ai-draft { border: 1px dashed var(--ai-line); background: var(--ai-fill); border-radius: var(--radius-card); }
+.confirmed { border: 1px solid var(--ok); background: var(--surface); border-radius: var(--radius-card); }
+.red-flag { border: 1px solid var(--line); border-left: 4px solid var(--danger); background: var(--danger-fill); border-radius: var(--radius-card); color: var(--ink); }
+/* 四種動畫（docs/UIUX_OMNI_TWIN.md §7）：熱點呼吸、活動列逐步出現、紅燈橫幅滑入、tab 淡入；reduced-motion 全關（見下方） */
+@keyframes breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.18); opacity: 0.75; } }
+@keyframes step-in { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+@keyframes slide-down { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.breathe { animation: breathe 2s ease-in-out infinite; transform-origin: center; }
+.step-in { animation: step-in 160ms ease-out both; }
+.slide-down { animation: slide-down 200ms ease-out both; }
+.fade-in { animation: fade-in 120ms ease-out both; }
+/* 01 全像人體（components/twin/body-hologram.tsx）：anatomogram 器官預設 inline 隱藏，這裡用 !important 點亮 */
+.holo svg { width: 100%; height: auto; display: block; position: relative; }
+.holo-grid {
+  background-image: linear-gradient(color-mix(in srgb, var(--accent) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 8%, transparent) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 85%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%);
+  background-size: 24px 24px, 24px 24px, 100% 100%;
+}
+.holo #LAYER_OUTLINE path, .holo #LAYER_OUTLINE * { stroke: var(--accent) !important; stroke-opacity: 0.55 !important; stroke-width: 0.35px !important; fill: color-mix(in srgb, var(--accent) 5%, transparent) !important; }
+.holo [id^="UBERON_"], .holo [id^="UBERON_"] *, .holo [id^="CL_"], .holo [id^="CL_"] * {
+  fill: color-mix(in srgb, var(--accent) 18%, transparent) !important;
+  stroke: var(--accent) !important; stroke-opacity: 0.75 !important; stroke-width: 0.22px !important;
+  transition: fill 120ms ease-out;
+}
+.holo .organ-state-changed, .holo .organ-state-changed * { fill: color-mix(in srgb, var(--accent-2) 30%, transparent) !important; stroke: var(--accent-2) !important; }
+.holo .organ-state-red, .holo .organ-state-red * { fill: color-mix(in srgb, var(--danger) 35%, transparent) !important; stroke: var(--danger) !important; }
+.holo .organ-on, .holo .organ-on * { fill: color-mix(in srgb, var(--accent-2) 55%, transparent) !important; stroke: var(--ink) !important; stroke-width: 0.3px !important; }
+/* 發光只給生命：01 熱點與同步燈 */
+.glow { box-shadow: 0 0 24px color-mix(in srgb, currentColor 35%, transparent); }
+/* 標籤：小型大寫、0.12em 字距 */
+.label-caps { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+/* 技術透視標籤 (TechTag)：列印時隱藏 */
+.tech-tag-wrap { vertical-align: middle; }
+@media print { .tech-tag-wrap { display: none !important; } }
+/* 臨床數字：等寬，對比 ≥ 7:1 */
+.clinical-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+/* wellness 大數字：只在 01 與 /me */
+.big-num { font-family: var(--font-latin); font-weight: 600; font-size: 40px; line-height: 1; color: var(--accent-2); }
+
+.skip-link {
+  position: absolute; left: -999px; top: 8px; z-index: 100;
+  background: var(--primary); color: var(--on-primary); padding: 8px 12px; border-radius: 8px;
+}
+.skip-link:focus { left: 8px; }
+
+/* ---- Print: RoundPage A4 ---- */
+@page { size: A4; margin: 14mm; }
+@media print {
+  /* 列印永遠白底（docs/UIUX_OMNI_TWIN.md §8）：整頁切到白色主題 tokens */
+  :root { --bg: #ffffff; --surface: #f7f9fc; --surface-2: #eef2f7; --line: #e3e8ef; --ink: #0f1b2d; --ink-2: #5b6b7f; --accent: #1f6feb; --accent-2: #6d5bd0; --primary: #1f6feb; --on-primary: #fff; --ok: #1fa971; --warn: #d98a00; --danger: #d64545; --ai-fill: #eaf2ff; --ai-line: #1f6feb; --danger-fill: #fbe9e9; --ok-fill: #e8f7f0; --warn-fill: #fff4e0; --ok-ink: #14724d; --warn-ink: #8a5700; --danger-ink: #a83232; color-scheme: light; }
+  html, body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .no-print { display: none !important; }
+  /* 病人頁「文件」tab：只印 RoundPage 那一張 */
+  body:has(.print-page) main section:not(:has(.print-page)):not(.print-page section) { display: none !important; }
+  .print-page { box-shadow: none !important; border: none !important; margin: 0 !important; max-width: none !important; padding: 0 !important; }
+  a { color: inherit; text-decoration: none; }
+  .ai-draft { border-style: dashed; background: #fff; }
+  section { break-inside: avoid; }
+}
