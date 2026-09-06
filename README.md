@@ -147,23 +147,30 @@ graph TD
 ```bash
 git clone https://github.com/chenni416/Communication-in-Healthcare.git
 cd Communication-in-Healthcare/apps/web
-npm install
+
+# 使用 corepack 啟用 pnpm 並安裝依賴
+corepack enable pnpm
+pnpm install
 ```
 
 **步驟 A：啟動後端 API (FastAPI + LangGraph)**
 請開啟第一個終端機視窗：
 ```bash
-cd apps/api
+cd ../api
 # 使用 uv 啟動 FastAPI 伺服器
 uv run uvicorn main:app --reload --port 8000
 ```
 
 **步驟 B：啟動前端介面 (Next.js)**
-請打開第二個終端機視窗，我們提供多種前端啟動方式：
+請打開第二個終端機視窗，切換至前端資料夾並啟動開發伺服器：
 
-標準啟動方式：
 ```bash
 cd apps/web
+
+# 如果您尚未全域安裝 pnpm，可以透過 Node.js 內建的 corepack 執行
+corepack pnpm dev
+
+# 或直接使用
 pnpm dev
 ```
 
