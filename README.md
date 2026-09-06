@@ -123,7 +123,6 @@ graph TD
 ├── 📂 packages
 │   └── 📂 schema               # 前後端共用的資料結構與型別定義
 ├── 📂 docs                     # 系統架構、設計文件與圖檔
-├── 📂 design-system            # 專案設計系統與樣式規範
 ├── 📂 data
 │   └── 📂 seed                 # 初始化腳本與展示用種子資料
 ├── Makefile                    # 封裝好的常用終端機指令
