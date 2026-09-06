@@ -109,24 +109,26 @@ graph TD
 為確保開源社群與評審能輕鬆 Clone 並 100% 重現專案，我們移除了冗餘檔案，保留核心架構如下：
 
 ```text
-📦 Communication-in-Healthcare
+📦 OMNI-TWIN
 ├── 📂 apps
 │   ├── 📂 web                  # 前端 (Next.js) 與 UI 元件
 │   │   ├── 📂 app              # Next.js App Router (五大角色介面路由)
 │   │   ├── 📂 components       # 共用元件 (包含 TechTag, 3D 模型渲染器)
-│   │   ├── 📂 public/models    # 數位孿生 3D 模型檔 (.glb)
 │   │   └── package.json        # 前端套件依賴設定檔
 │   └── 📂 api                  # 後端 (FastAPI + LangGraph)
-│       ├── main.py             # FastAPI 伺服器入口點
-│       ├── agents/             # LangGraph 核心邏輯 (Intake, Nurse 等)
-│       └── requirements.txt    # Python 核心依賴 (可用 uv 快速安裝)
+│       ├── 📂 agents           # LangGraph 核心邏輯 (Intake, Nurse 等)
+│       ├── 📂 core             # 核心設定與工具
+│       ├── 📂 graphs           # 多智能體圖譜定義
+│       └── main.py             # FastAPI 伺服器入口點
+├── 📂 packages
+│   └── 📂 schema               # 前後端共用的資料結構與型別定義
+├── 📂 docs                     # 系統架構、設計文件與圖檔
+├── 📂 design-system            # 專案設計系統與樣式規範
 ├── 📂 data
-│   └── 📂 seed
-│       └── seed.py             # 🚀 初始化腳本：一鍵生成 14 天展示用乾淨資料
-├── 📂 records                  # 輕量級本地端資料庫 (存放 JSON 事件與向量數據)
-├── Makefile                    # 封裝好的環境重置指令 (make reset)
-├── .env.example                # 環境變數範例檔 (請在此填入 OPENAI_API_KEY)
-└── README.md                   # 本專案說明文件
+│   └── 📂 seed                 # 初始化腳本與展示用種子資料
+├── Makefile                    # 封裝好的常用終端機指令
+├── .env.example                # 環境變數範例檔 (請在此填入 API Key)
+└── README.md                   # 專案主說明文件
 ```
 
 ---
