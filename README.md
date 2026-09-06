@@ -146,16 +146,25 @@ graph TD
 ```bash
 git clone https://github.com/chenni416/Communication-in-Healthcare.git
 cd Communication-in-Healthcare/apps/web
-
 # 使用 corepack 啟用 pnpm 並安裝依賴
 corepack enable pnpm
 pnpm install
 ```
 
+### 3. 建立初始資料 (Seed Data)
+為了讓應用程式有基本的測試資料，請執行以下腳本來寫入初步資料（需切換到後端資料夾並使用 uv 執行）：
+
+```bash
+cd apps/api
+uv run python ../../data/seed/seed.py
+```
+
+### 4. 啟動服務
+
 **步驟 A：啟動後端 API (FastAPI + LangGraph)**
 請開啟第一個終端機視窗：
 ```bash
-cd ../api
+cd apps/api
 # 使用 uv 啟動 FastAPI 伺服器
 uv run uvicorn main:app --reload --port 8000
 ```
@@ -165,7 +174,6 @@ uv run uvicorn main:app --reload --port 8000
 
 ```bash
 cd apps/web
-
 # 如果您尚未全域安裝 pnpm，可以透過 Node.js 內建的 corepack 執行
 corepack pnpm dev
 
@@ -174,8 +182,6 @@ pnpm dev
 ```
 
 🌟 網站將會運行於：`http://localhost:3000`
-
----
 
 ## 📜 來源說明與開源授權 (Acknowledgments & License)
 
